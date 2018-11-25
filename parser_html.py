@@ -1,8 +1,9 @@
+import json
 from pprint import pprint
 
 from bs4 import BeautifulSoup
 
-with open("e27.html") as fp:
+with open("input/e27.html") as fp:
     soup = BeautifulSoup(fp, 'lxml')
 
 data = []
@@ -14,7 +15,7 @@ for item in soup.find_all('li', class_='catalog__item'):
     if not name: continue
     name = name.a.string.strip()
 
-    articul = (item['data-art'])
+    articul = item['data-art']
 
     price = item.find('p', class_='catalog__price')
     price = price.contents[0] + price.contents[1].text
@@ -35,9 +36,6 @@ for item in soup.find_all('li', class_='catalog__item'):
 print('*************************************************')
 pprint(data)
 print(len(data))
-
-
-import json
 
 with open('data.json', 'w') as fp:
     json.dump(data, fp, ensure_ascii=False)
