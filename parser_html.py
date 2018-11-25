@@ -1,6 +1,6 @@
 import json
 from pprint import pprint
-
+import qrcode
 from bs4 import BeautifulSoup
 
 with open("input/e27.html") as fp:
@@ -31,6 +31,21 @@ for item in soup.find_all('li', class_='catalog__item'):
         'link': link,
         'image': image,
     })
+
+    # QR code maker
+    qr = qrcode.QRCode(
+        version=1,
+        error_correction=qrcode.constants.ERROR_CORRECT_L,
+        box_size=10,
+        border=4,
+    )
+    qr.add_data(articul)
+    qr.make(fit=True)
+
+    img = qr.make_image(fill_color="black", back_color="white")
+    img.save(f"qr/{articul}.png", "PNG")
+
+    # img = qrcode.make(articul)
 
 
 print('*************************************************')

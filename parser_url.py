@@ -20,10 +20,8 @@ with open("input/catalogue_lampy-e27_.html") as fp:
 pattern = re.compile('var items = (.*)')
 scripts = soup.find_all("script")
 
-j=0
 stock=''
 for script in scripts:
-    print('------------'+str(j)+'-------------')
     if script.string:
         if 'var items' in script.string:
 
@@ -36,6 +34,5 @@ for script in scripts:
                 fp.write(data)
             print(data)
             stock = json.loads(data)
-    j=j+1
 
 print(stock)
