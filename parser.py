@@ -21,11 +21,14 @@ for item in soup.find_all('li', class_='catalog__item'):
 
     link = item.find('a', href=True)['href']
 
+    image = item.find('img')['src']
+
     data.append({
         'name': name,
         'articul': articul,
         'price': price,
         'link': link,
+        'image': image,
     })
 
 
